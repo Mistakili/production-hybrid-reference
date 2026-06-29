@@ -1,0 +1,63 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# Capacitor native projects (generated)
+apps/mobile/ios/
+apps/mobile/android/
+apps/mobile/.capacitor/
+
+# Environment
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json.example
+*.swp
+*.swo
+
+# Test / coverage
+coverage/
+.nyc_output/
+
+# Docker
+docker-data/
+
+# Secrets
+*.pem
+*.p8
+*.p12
+AuthKey_*.p8
+google-services.json
+GoogleService-Info.plist
+firebase-adminsdk*.json
+
+# Drizzle
+backend/drizzle/meta/
+
+# Misc
+*.local
+.cache/
+.turbo/

@@ -1,0 +1,53 @@
+name: Production Lesson
+description: Share a real production story
+title: "[Lesson] "
+labels: ["lesson", "documentation"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+    validations:
+      required: true
+
+  - type: textarea
+    id: symptoms
+    attributes:
+      label: Symptoms
+    validations:
+      required: true
+
+  - type: textarea
+    id: root_cause
+    attributes:
+      label: Root Cause
+    validations:
+      required: true
+
+  - type: textarea
+    id: investigation
+    attributes:
+      label: Investigation
+    validations:
+      required: true
+
+  - type: textarea
+    id: fix
+    attributes:
+      label: Fix
+    validations:
+      required: true
+
+  - type: textarea
+    id: why_docs
+    attributes:
+      label: Why documentation wasn't enough
+    validations:
+      required: true
+
+  - type: textarea
+    id: prevention
+    attributes:
+      label: Future prevention
+    validations:
+      required: true

@@ -1,0 +1,17 @@
+{
+  "name": "production-hybrid-reference",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Open-source reference architecture for production Capacitor + React + Node.js applications",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mistakili/production-hybrid-reference.git"
+  },
+  "scripts": {
+    "docs:check": "node -e \"const fs=require('fs');const docs=['Architecture','PushNotifications','RevenueCat','Deployment','Environment','Troubleshooting','Lessons','ProductionChecklist'];docs.forEach(d=>{const p='docs/'+d+'.md';if(!fs.existsSync(p))throw new Error('Missing '+p)});console.log('All docs present.')\""
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

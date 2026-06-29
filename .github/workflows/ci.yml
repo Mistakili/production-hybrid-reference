@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-typecheck:
+    name: Lint & Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      # Runs when package.json files exist in apps/mobile and backend
+      - name: Install dependencies (if present)
+        run: |
+          if [ -f package.json ]; then pnpm install --frozen-lockfile || pnpm install; fi
+          if [ -f apps/mobile/package.json ]; then cd apps/mobile && pnpm install; fi
+          if [ -f backend/package.json ]; then cd backend && pnpm install; fi
+        continue-on-error: true
+
+      - name: Typecheck (if configured)
+        run: |
+          if [ -f package.json ] && grep -q '"typecheck"' package.json; then pnpm typecheck; fi
+          if [ -f apps/mobile/package.json ] && grep -q '"typecheck"' apps/mobile/package.json; then cd apps/mobile && pnpm typecheck; fi
+          if [ -f backend/package.json ] && grep -q '"typecheck"' backend/package.json; then cd backend && pnpm typecheck; fi
+        continue-on-error: true
+
+      - name: Lint (if configured)
+        run: |
+          if [ -f package.json ] && grep -q '"lint"' package.json; then pnpm lint; fi
+          if [ -f apps/mobile/package.json ] && grep -q '"lint"' apps/mobile/package.json; then cd apps/mobile && pnpm lint; fi
+          if [ -f backend/package.json ] && grep -q '"lint"' backend/package.json; then cd backend && pnpm lint; fi
+        continue-on-error: true
+
+  docs-check:
+    name: Docs structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify required documentation exists
+        run: |
+          required_docs=(
+            docs/Architecture.md
+            docs/PushNotifications.md
+            docs/RevenueCat.md
+            docs/Deployment.md
+            docs/Environment.md
+            docs/Troubleshooting.md
+            docs/Lessons.md
+            docs/ProductionChecklist.md
+          )
+          for doc in "${required_docs[@]}"; do
+            if [ ! -f "$doc" ]; then
+              echo "Missing required doc: $doc"
+              exit 1
+            fi
+          done
+          echo "All required docs present."

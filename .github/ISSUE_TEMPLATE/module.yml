@@ -1,0 +1,57 @@
+name: Module
+description: Track a reference architecture module
+title: "[Module] "
+labels: ["module"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for new production modules (auth, push, RevenueCat, etc.).
+
+  - type: input
+    id: module
+    attributes:
+      label: Module name
+      placeholder: e.g. Push Notifications
+    validations:
+      required: true
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What should developers learn from this module?
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: Files/folders to add or modify
+      placeholder: |
+        - apps/mobile/src/services/push/
+        - backend/src/services/apns/
+        - docs/PushNotifications.md
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: deliverables
+    attributes:
+      label: Deliverables
+      options:
+        - label: Reference implementation code
+        - label: Documentation update
+        - label: Example in examples/
+        - label: Template in templates/
+        - label: Production checklist items
+        - label: Tests
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: How do we know this module is done?
+    validations:
+      required: true
