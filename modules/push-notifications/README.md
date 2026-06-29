@@ -26,6 +26,8 @@ End-to-end Capacitor iOS push — registration, AppDelegate, APNs delivery, Test
 ```bash
 cd modules/push-notifications/server
 npm install
+# macOS/Linux: cp .env.example .env
+# Windows:     copy .env.example .env
 cp .env.example .env
 ```
 
@@ -47,7 +49,7 @@ npm run dev
 ```bash
 cd modules/push-notifications/mobile
 npm install
-cp .env.example .env.local
+cp .env.example .env.local   # Windows: copy .env.example .env.local
 ```
 
 On a **physical device**, set your machine's LAN IP:
@@ -64,12 +66,14 @@ VITE_IOS_PUSH_ENV=production
 ```
 
 ```bash
-npm run dev          # browser UI check
+npm run dev          # browser UI check (push requires native build)
 npm run build
-npx cap add ios      # first time only
+npx cap add ios      # first time only — requires macOS + Xcode
 npm run cap:sync     # sync + restore AppDelegate
-npm run cap:ios      # open Xcode → run on device
+npm run cap:ios      # open Xcode → run on physical device
 ```
+
+> **Windows:** Run the server here. Build iOS on a Mac or CI — or copy `mobile/src/push/` into your existing Capacitor app.
 
 ### 3. Verify
 

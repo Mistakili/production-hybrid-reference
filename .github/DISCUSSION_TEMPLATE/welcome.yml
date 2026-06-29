@@ -1,0 +1,16 @@
+title: Welcome to Production Hybrid
+body:
+  - type: markdown
+    value: |
+      ## Get help with Capacitor production issues
+
+      **Before posting:**
+      1. Build type (Xcode debug / TestFlight / App Store)
+      2. Platform (iOS / Android)
+      3. Symptoms (what works vs what doesn't)
+      4. What you've already tried
+
+      **Module Zero (Push):** [Quick start](https://github.com/Mistakili/production-hybrid-reference/tree/main/modules/push-notifications)
+
+      **30-minute fixes:** [recipes/30-minute-fixes](https://github.com/Mistakili/production-hybrid-reference/tree/main/recipes/30-minute-fixes)
+labels: []

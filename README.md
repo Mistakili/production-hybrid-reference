@@ -65,9 +65,18 @@ Verify: `GET http://localhost:3001/api/push/status` → send test push from app.
 
 Copy-paste without the full module: [`recipes/`](recipes/)
 
+- [**30-minute fixes**](recipes/30-minute-fixes/) — one problem, one fix
 - [Push notifications](recipes/push-notifications/)
 - [AppDelegate](recipes/appdelegate/)
 - [APNs server](recipes/apns/)
+
+## Article
+
+[Why Capacitor Push Works in Debug but Fails in TestFlight](content/articles/capacitor-push-testflight.md) — publish to Dev.to, Medium, LinkedIn.
+
+## Discussions
+
+[GitHub Discussions](https://github.com/Mistakili/production-hybrid-reference/discussions) — ask questions, share what broke.
 
 ---
 

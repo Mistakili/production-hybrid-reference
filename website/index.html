@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Production-ready Capacitor reference architecture. Fix TestFlight push, AppDelegate, APNs — from real production scars." />
+  <title>Production Hybrid — Capacitor Production Reference</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --green: #4ade80;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .wrap { max-width: 640px; margin: 0 auto; padding: 3rem 1.5rem; }
+    h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .tagline { color: var(--muted); font-size: 1.05rem; margin-bottom: 2rem; }
+    .hook {
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.95rem;
+    }
+    .links { display: flex; flex-direction: column; gap: 0.75rem; }
+    a.card {
+      display: block;
+      background: var(--surface);
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      color: var(--text);
+      text-decoration: none;
+      transition: border-color 0.15s;
+    }
+    a.card:hover { border-color: var(--accent); }
+    a.card strong { display: block; margin-bottom: 0.2rem; }
+    a.card span { color: var(--muted); font-size: 0.875rem; }
+    .badge {
+      display: inline-block;
+      background: #14532d;
+      color: var(--green);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+    }
+    footer { margin-top: 3rem; color: var(--muted); font-size: 0.8rem; }
+    footer a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="badge">✅ Production Push v1.0</p>
+    <h1>Production Hybrid</h1>
+    <p class="tagline">Build production-ready Capacitor apps — from real scars, not tutorials.</p>
+
+    <p class="hook">
+      Push works in debug but fails in TestFlight? AppDelegate overwritten after <code>cap sync</code>?
+      Open-source fixes with runnable code.
+    </p>
+
+    <nav class="links">
+      <a class="card" href="https://github.com/Mistakili/production-hybrid-reference">
+        <strong>GitHub — Reference Repo</strong>
+        <span>Module Zero: runnable push server + Capacitor demo</span>
+      </a>
+      <a class="card" href="https://github.com/Mistakili/production-hybrid-reference/tree/main/modules/push-notifications">
+        <strong>Documentation — Module Zero</strong>
+        <span>15-minute quick start, TestFlight checklist</span>
+      </a>
+      <a class="card" href="https://github.com/Mistakili/production-hybrid-reference/tree/main/recipes/30-minute-fixes">
+        <strong>Recipes — 30-Minute Fixes</strong>
+        <span>One problem, one fix, no full clone</span>
+      </a>
+      <a class="card" href="https://github.com/Mistakili/production-hybrid-reference/blob/main/content/articles/capacitor-push-testflight.md">
+        <strong>Article — Debug vs TestFlight</strong>
+        <span>Why push breaks in production (and the fix)</span>
+      </a>
+      <a class="card" href="https://github.com/Mistakili/production-hybrid-reference/discussions">
+        <strong>Discussions — Get Help</strong>
+        <span>Ask about push, RevenueCat, production architecture</span>
+      </a>
+      <a class="card" href="#newsletter">
+        <strong>Newsletter — Production Notes</strong>
+        <span>Coming soon — new recipes and postmortems</span>
+      </a>
+    </nav>
+
+    <footer id="newsletter">
+      <p>Toolkit (paid) coming after modules prove demand.</p>
+      <p style="margin-top:0.5rem">
+        <a href="https://github.com/Mistakili/production-hybrid-reference">Star on GitHub</a>
+        · MIT licensed
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
