@@ -1,8 +1,8 @@
 /**
  * APNs service with environment routing, error handling, and retry.
  *
- * Install a real client when implementing: `apns2` or `@parse/node-apn`
- * This file shows the production structure — swap sendApns() internals.
+ * Production implementation with apns2: see
+ * modules/push-notifications/server/src/services/apns-service.ts
  */
 
 export type APNsEnvironment = 'sandbox' | 'production';

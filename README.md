@@ -1,149 +1,99 @@
 # Production Hybrid Reference
 
-**Stop losing weekends debugging Capacitor production issues.**
+**Stop losing weekends debugging Capacitor push notifications in TestFlight.**
 
-This is the canonical open-source reference for shipping Capacitor apps to the App Store — built from real scars encountered while shipping a commercial hybrid application ([Veminder](https://github.com/Mistakili)).
-
-Not a starter template. Not a tutorial app. A **reference implementation** other developers can point to when someone asks: *"Does anyone have a good production Capacitor example?"*
-
-> Developed with Replit for speed. Runs anywhere standard Node.js and Capacitor are supported. No Replit required to clone.
+Canonical open-source reference for shipping Capacitor iOS push to production — built from real postmortems while shipping [Veminder](https://github.com/Mistakili).
 
 ---
 
-## Problems this repository solves
+## Modules
 
-- Push notifications work locally but **fail in TestFlight**
-- **AppDelegate changes disappear** after `npx cap sync`
-- **RevenueCat entitlement desync** between client and server
-- **APNs HTTP/2 disconnects** (`ECONNRESET` / `EPIPE`) in Node.js
-- Speech synthesis **blocked on iOS** until user gesture
-- **Production vs sandbox** environment confusion
-- **Debugging production builds** when logs disappear
+| Module | Version | Status |
+|--------|---------|--------|
+| **Production Push Notifications** | **v1.0** | ✅ Runnable server + mobile demo |
+| RevenueCat | v0.0 | ⬜ Planned |
+| Apple Review | v0.0 | ⬜ Planned |
+| Background Tasks | — | ⬜ Coming |
+| Crash Reporting | — | ⬜ Coming |
 
-Each problem maps to a [production lesson](docs/production-lessons/) with symptoms, hours lost, root cause, and fix.
-
----
-
-## What's included
-
-| Module | Status | Location |
-|--------|--------|----------|
-| Push Notifications (FCM + APNs) | 🚧 In progress | [`recipes/push-notifications/`](recipes/push-notifications/) |
-| AppDelegate persistence | 🚧 In progress | [`recipes/appdelegate/`](recipes/appdelegate/) |
-| APNs server delivery | 🚧 In progress | [`recipes/apns/`](recipes/apns/) |
-| RevenueCat webhooks | ⬜ Planned | [`recipes/revenuecat/`](recipes/revenuecat/) |
-| Deep links | ⬜ Planned | [`recipes/deep-links/`](recipes/deep-links/) |
-| Production logging | ⬜ Planned | [`recipes/logging/`](recipes/logging/) |
-
-Copy-paste templates: [`templates/`](templates/)
+**Start here:** [`modules/push-notifications/`](modules/push-notifications/)
 
 ---
 
-## Roadmap
+## Problems this solves
 
-| Module | Status |
-|--------|--------|
-| Push Notifications | 🚧 |
-| AppDelegate / `cap sync` | 🚧 |
-| RevenueCat | ⬜ |
-| Apple Sign In | ⬜ |
-| Environment separation | ⬜ |
-| Production logging | ⬜ |
-| Crash reporting | ⬜ |
-| Feature flags | ⬜ |
-| Background tasks | ⬜ |
-| Offline sync | ⬜ |
-| Apple Review checklist | ⬜ |
-| CI/CD | ⬜ |
-
-Track detailed work in [GitHub Issues](https://github.com/Mistakili/production-hybrid-reference/issues). Star this repo to follow module releases.
+- Push works locally but **fails in TestFlight**
+- **AppDelegate overwritten** after `npx cap sync`
+- **APNs HTTP/2 crashes** in Node.js (`ECONNRESET` / `EPIPE`)
+- Sandbox vs production **environment mismatch**
 
 ---
 
-## Quick start
+## Quick start (Module Zero)
 
 ```bash
 git clone https://github.com/Mistakili/production-hybrid-reference.git
-cd production-hybrid-reference
+cd production-hybrid-reference/modules/push-notifications
 ```
 
-**Start here if you're stuck on push:**
+See **[Module Zero README](modules/push-notifications/README.md)** for full setup.
 
-1. Read [lesson-01: TestFlight push failures](docs/production-lessons/lesson-01-testflight-push-fails.md)
-2. Copy [AppDelegate recipe](recipes/appdelegate/)
-3. Copy [push registration recipe](recipes/push-notifications/)
-4. Copy [APNs server recipe](recipes/apns/)
+```bash
+# Terminal 1 — server
+cd server && npm install && cp .env.example .env
+# APNS_MOCK=true for testing without Apple credentials
+npm run dev
 
-Full mobile and backend scaffolds land after push module is complete.
-
----
-
-## Repository structure
-
-```
-production-hybrid-reference/
-├── apps/mobile/           # Capacitor + React reference client
-├── backend/               # Express + Node reference API
-├── docs/                  # Guides, checklists, production lessons
-│   └── production-lessons/  # Real post-mortems (hours lost, fixes)
-├── recipes/               # Copy-paste production recipes
-├── templates/             # Drop-in TypeScript / Swift templates
-├── scripts/
-├── diagrams/
-└── .github/
+# Terminal 2 — mobile
+cd mobile && npm install && cp .env.example .env.local
+npm run build && npx cap add ios && npm run cap:sync && npm run cap:ios
 ```
 
----
-
-## Production lessons
-
-The signature feature. Not generic docs — **post-mortems from shipping**.
-
-| Lesson | Problem | Hours lost |
-|--------|---------|------------|
-| [lesson-01](docs/production-lessons/lesson-01-testflight-push-fails.md) | Push works locally, fails in TestFlight | ~12h |
-| [lesson-02](docs/production-lessons/lesson-02-appdelegate-cap-sync.md) | AppDelegate overwritten after `cap sync` | ~6h |
-| [lesson-03](docs/production-lessons/lesson-03-apns-http2-crashes.md) | APNs HTTP/2 socket crashes in Node | ~8h |
-
-[Contributing a lesson →](CONTRIBUTING.md)
+Verify: `GET http://localhost:3001/api/push/status` → send test push from app.
 
 ---
 
-## Documentation
+## Production postmortems
 
-| Doc | Purpose |
-|-----|---------|
-| [Push Notifications](docs/PushNotifications.md) | Registration, tokens, FCM + APNs |
-| [RevenueCat](docs/RevenueCat.md) | Webhook idempotency, entitlement sync |
-| [Architecture](docs/Architecture.md) | Module boundaries |
-| [Environment](docs/Environment.md) | Dev / staging / production config |
-| [Deployment](docs/Deployment.md) | Release process |
-| [Troubleshooting](docs/Troubleshooting.md) | Symptom → fix lookup |
-| [Production Checklist](docs/ProductionChecklist.md) | Pre-launch verification |
+| Date | Story |
+|------|-------|
+| [2026-06-15](production-postmortems/2026-06-15-testflight-push-fails.md) | TestFlight push failed — environment mismatch |
 
 ---
 
-## Tech stack
+## Recipes
 
-React · TypeScript · Capacitor · Vite · Node.js · Express · PostgreSQL · Drizzle · FCM · APNs · RevenueCat
+Copy-paste without the full module: [`recipes/`](recipes/)
 
----
-
-## Who this is for
-
-Developers who already shipped a Capacitor prototype and hit the production wall. If you're learning Capacitor basics, start with [official docs](https://capacitorjs.com/docs) first.
+- [Push notifications](recipes/push-notifications/)
+- [AppDelegate](recipes/appdelegate/)
+- [APNs server](recipes/apns/)
 
 ---
 
-## Commercial toolkit
+## Troubleshooting
 
-This open-source reference is the foundation of **Production Hybrid** — a paid developer toolkit (ebook, recipes, premium modules). The OSS repo proves the fixes work before anyone pays.
+Symptom-first guides: [`docs/Troubleshooting/`](docs/Troubleshooting/)
+
+- [Push notifications](docs/Troubleshooting/push-notifications.md)
+
+---
+
+## Principles
+
+[`docs/Principles.md`](docs/Principles.md) — production over cleverness, real bugs over hypotheticals.
+
+---
+
+## Changelog
+
+[`CHANGELOG.md`](CHANGELOG.md) — **Production Push v1.0** released 2026-06-29.
 
 ---
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Priority: production lessons with real hours-lost stories and working recipes.
+Real production scars welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 

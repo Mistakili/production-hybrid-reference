@@ -12,6 +12,9 @@ out/
 apps/mobile/ios/
 apps/mobile/android/
 apps/mobile/.capacitor/
+modules/push-notifications/mobile/ios/
+modules/push-notifications/mobile/android/
+modules/push-notifications/mobile/.capacitor/
 
 # Environment
 .env
@@ -50,6 +53,8 @@ docker-data/
 *.p8
 *.p12
 AuthKey_*.p8
+modules/push-notifications/server/secrets/
+!modules/push-notifications/server/secrets/.gitkeep
 google-services.json
 GoogleService-Info.plist
 firebase-adminsdk*.json

@@ -12,7 +12,8 @@ Node.js APNs send with production-safe error handling.
 
 | File | Purpose |
 |------|---------|
-| [`apns-service-with-retry.ts`](apns-service-with-retry.ts) | Service with retry, environment routing, error handlers |
+| [`../../modules/push-notifications/server/`](../../modules/push-notifications/server/) | **v1.0 runnable server** with `apns2` |
+| [`apns-service-with-retry.ts`](apns-service-with-retry.ts) | Structural template (copy reference) |
 | [`register-route.ts`](register-route.ts) | Backend token registration endpoint |
 
 ## Environment routing
