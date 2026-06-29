@@ -62,7 +62,7 @@ Providers manage React lifecycle and UI state. Services are framework-agnostic a
 - One service per external system (APNs, FCM, RevenueCat)
 - Idempotent webhook handlers with deduplication keys
 - Structured logs with `requestId` propagated mobile → API
-- Feature modules added via `examples/` before promotion to `apps/` or `backend/`
+- Feature modules added via `recipes/` before promotion to `apps/` or `backend/`
 
 ## Status
 

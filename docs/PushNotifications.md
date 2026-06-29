@@ -31,10 +31,12 @@ Push notifications span three systems: the mobile OS, your backend, and a delive
 
 - Always log the **platform** and **environment** with every token registration
 - Test permission-denied UX separately from token-registration failures
-- Keep `examples/apns/` and `examples/appdelegate/` for iOS-specific setup
+- Keep `recipes/apns/` and `recipes/appdelegate/` for iOS-specific setup
 
 ## Related
 
+- [`recipes/push-notifications/`](../recipes/push-notifications/) — start here
+- [`docs/production-lessons/lesson-01-testflight-push-fails.md`](production-lessons/lesson-01-testflight-push-fails.md)
 - [`templates/APNSService.ts`](../templates/APNSService.ts)
-- [`examples/apns/`](../examples/apns/)
+- [`recipes/apns/`](../recipes/apns/)
 - [`docs/ProductionChecklist.md`](ProductionChecklist.md#push-notifications)

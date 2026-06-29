@@ -1,36 +1,80 @@
 # Production Hybrid Reference
 
-An open-source reference architecture for building **production-ready hybrid mobile applications** with Capacitor, React, and Node.js.
+**Stop losing weekends debugging Capacitor production issues.**
 
-This is not a starter template and not an end-user application. It is a **consultable reference** — the kind of repository experienced engineers clone when they need to see how production concerns are structured, documented, and implemented.
+This is the canonical open-source reference for shipping Capacitor apps to the App Store — built from real scars encountered while shipping a commercial hybrid application ([Veminder](https://github.com/Mistakili)).
 
-It is the foundation of [Production Hybrid](https://github.com/Mistakili), a commercial developer toolkit for teams shipping Capacitor apps to the App Store and Google Play.
+Not a starter template. Not a tutorial app. A **reference implementation** other developers can point to when someone asks: *"Does anyone have a good production Capacitor example?"*
 
----
-
-## Who this is for
-
-- **Senior engineers** evaluating architecture before greenfielding a Capacitor project
-- **Teams** migrating from prototype to production and needing a checklist-driven path
-- **Maintainers** who want modular, documented patterns for push, subscriptions, logging, and deployment
-- **Contributors** extending the reference with real production lessons
-
-If you want a copy-paste boilerplate with minimal explanation, this repository is intentionally the wrong choice.
+> Developed with Replit for speed. Runs anywhere standard Node.js and Capacitor are supported. No Replit required to clone.
 
 ---
 
-## Why this exists
+## Problems this repository solves
 
-Most Capacitor tutorials stop at `npx cap run ios`. Production apps require:
+- Push notifications work locally but **fail in TestFlight**
+- **AppDelegate changes disappear** after `npx cap sync`
+- **RevenueCat entitlement desync** between client and server
+- **APNs HTTP/2 disconnects** (`ECONNRESET` / `EPIPE`) in Node.js
+- Speech synthesis **blocked on iOS** until user gesture
+- **Production vs sandbox** environment confusion
+- **Debugging production builds** when logs disappear
 
-- Push notification registration across FCM and APNs
-- Subscription webhooks (RevenueCat) with idempotent handling
-- Environment separation across dev, staging, and production
-- Structured logging and error boundaries on mobile and server
-- Deep linking, permission flows, and token refresh
-- CI/CD, Docker, and deployment documentation
+Each problem maps to a [production lesson](docs/production-lessons/) with symptoms, hours lost, root cause, and fix.
 
-This repository demonstrates **how to structure those concerns** without building a feature-complete product around them.
+---
+
+## What's included
+
+| Module | Status | Location |
+|--------|--------|----------|
+| Push Notifications (FCM + APNs) | 🚧 In progress | [`recipes/push-notifications/`](recipes/push-notifications/) |
+| AppDelegate persistence | 🚧 In progress | [`recipes/appdelegate/`](recipes/appdelegate/) |
+| APNs server delivery | 🚧 In progress | [`recipes/apns/`](recipes/apns/) |
+| RevenueCat webhooks | ⬜ Planned | [`recipes/revenuecat/`](recipes/revenuecat/) |
+| Deep links | ⬜ Planned | [`recipes/deep-links/`](recipes/deep-links/) |
+| Production logging | ⬜ Planned | [`recipes/logging/`](recipes/logging/) |
+
+Copy-paste templates: [`templates/`](templates/)
+
+---
+
+## Roadmap
+
+| Module | Status |
+|--------|--------|
+| Push Notifications | 🚧 |
+| AppDelegate / `cap sync` | 🚧 |
+| RevenueCat | ⬜ |
+| Apple Sign In | ⬜ |
+| Environment separation | ⬜ |
+| Production logging | ⬜ |
+| Crash reporting | ⬜ |
+| Feature flags | ⬜ |
+| Background tasks | ⬜ |
+| Offline sync | ⬜ |
+| Apple Review checklist | ⬜ |
+| CI/CD | ⬜ |
+
+Track detailed work in [GitHub Issues](https://github.com/Mistakili/production-hybrid-reference/issues). Star this repo to follow module releases.
+
+---
+
+## Quick start
+
+```bash
+git clone https://github.com/Mistakili/production-hybrid-reference.git
+cd production-hybrid-reference
+```
+
+**Start here if you're stuck on push:**
+
+1. Read [lesson-01: TestFlight push failures](docs/production-lessons/lesson-01-testflight-push-fails.md)
+2. Copy [AppDelegate recipe](recipes/appdelegate/)
+3. Copy [push registration recipe](recipes/push-notifications/)
+4. Copy [APNs server recipe](recipes/apns/)
+
+Full mobile and backend scaffolds land after push module is complete.
 
 ---
 
@@ -38,145 +82,71 @@ This repository demonstrates **how to structure those concerns** without buildin
 
 ```
 production-hybrid-reference/
-├── apps/
-│   └── mobile/              # Capacitor + React + Vite reference client
-├── backend/                 # Express + PostgreSQL + Drizzle reference API
-├── docs/                    # Architecture decisions and production guides
-├── examples/                # Isolated, copy-friendly snippets
-├── templates/               # Reusable production templates
-├── scripts/                 # Setup and maintenance scripts
-├── diagrams/                # Architecture diagrams
-└── .github/                 # CI workflows and issue templates
+├── apps/mobile/           # Capacitor + React reference client
+├── backend/               # Express + Node reference API
+├── docs/                  # Guides, checklists, production lessons
+│   └── production-lessons/  # Real post-mortems (hours lost, fixes)
+├── recipes/               # Copy-paste production recipes
+├── templates/             # Drop-in TypeScript / Swift templates
+├── scripts/
+├── diagrams/
+└── .github/
 ```
-
-| Path | Purpose |
-|------|---------|
-| [`apps/mobile/`](apps/mobile/) | Mobile architecture: services, providers, plugins, config |
-| [`backend/`](backend/) | API architecture: controllers, services, workers, middleware |
-| [`docs/`](docs/) | Why decisions were made, checklists, troubleshooting |
-| [`examples/`](examples/) | Standalone examples (APNs, RevenueCat, deep links, etc.) |
-| [`templates/`](templates/) | Drop-in templates for common production modules |
 
 ---
 
-## Tech stack
+## Production lessons
 
-| Layer | Technologies |
-|-------|--------------|
-| Mobile | React, TypeScript, Capacitor, Vite |
-| Backend | Node.js, TypeScript, Express |
-| Database | PostgreSQL, Drizzle ORM |
-| Push | Firebase Cloud Messaging, Apple Push Notifications |
-| Subscriptions | RevenueCat (webhook integration) |
-| Ops | Environment config, structured logging, Docker, GitHub Actions |
+The signature feature. Not generic docs — **post-mortems from shipping**.
 
----
+| Lesson | Problem | Hours lost |
+|--------|---------|------------|
+| [lesson-01](docs/production-lessons/lesson-01-testflight-push-fails.md) | Push works locally, fails in TestFlight | ~12h |
+| [lesson-02](docs/production-lessons/lesson-02-appdelegate-cap-sync.md) | AppDelegate overwritten after `cap sync` | ~6h |
+| [lesson-03](docs/production-lessons/lesson-03-apns-http2-crashes.md) | APNs HTTP/2 socket crashes in Node | ~8h |
 
-## Prerequisites
-
-- Node.js 20+
-- pnpm 9+ (recommended) or npm
-- PostgreSQL 15+ (for backend modules)
-- Xcode (iOS builds) and/or Android Studio (Android builds)
-- Docker (optional, for local Postgres)
-
----
-
-## Quick start
-
-> **Status:** This repository is built incrementally. See [Roadmap](#roadmap) for module status.
-
-```bash
-git clone https://github.com/Mistakili/production-hybrid-reference.git
-cd production-hybrid-reference
-```
-
-### Mobile (when scaffolded)
-
-```bash
-cd apps/mobile
-pnpm install
-cp .env.example .env.local
-pnpm dev
-```
-
-### Backend (when scaffolded)
-
-```bash
-cd backend
-pnpm install
-cp .env.example .env
-docker compose up -d   # optional: local Postgres
-pnpm db:migrate
-pnpm dev
-```
-
-See [`docs/Environment.md`](docs/Environment.md) for full environment variable reference.
+[Contributing a lesson →](CONTRIBUTING.md)
 
 ---
 
 ## Documentation
 
-| Document | Description |
-|----------|-------------|
-| [Architecture](docs/Architecture.md) | System design and module boundaries |
-| [Push Notifications](docs/PushNotifications.md) | FCM + APNs registration and delivery |
-| [RevenueCat](docs/RevenueCat.md) | Webhook handling and entitlement sync |
-| [Deployment](docs/Deployment.md) | CI/CD, Docker, and release process |
-| [Environment](docs/Environment.md) | Config management across environments |
-| [Troubleshooting](docs/Troubleshooting.md) | Common production failures |
-| [Lessons](docs/Lessons.md) | Real production stories (contributions welcome) |
+| Doc | Purpose |
+|-----|---------|
+| [Push Notifications](docs/PushNotifications.md) | Registration, tokens, FCM + APNs |
+| [RevenueCat](docs/RevenueCat.md) | Webhook idempotency, entitlement sync |
+| [Architecture](docs/Architecture.md) | Module boundaries |
+| [Environment](docs/Environment.md) | Dev / staging / production config |
+| [Deployment](docs/Deployment.md) | Release process |
+| [Troubleshooting](docs/Troubleshooting.md) | Symptom → fix lookup |
 | [Production Checklist](docs/ProductionChecklist.md) | Pre-launch verification |
 
 ---
 
-## Design principles
+## Tech stack
 
-1. **Clarity over completeness** — Small, readable modules beat sprawling abstractions
-2. **Production-ready, not production-finished** — Patterns are real; the demo app stays minimal
-3. **Heavily documented** — Every non-obvious decision has a `docs/` explanation
-4. **Modular and reusable** — Copy `templates/` or `examples/` without dragging the whole repo
-5. **Educational value** — Teach *why*, not just *what*
+React · TypeScript · Capacitor · Vite · Node.js · Express · PostgreSQL · Drizzle · FCM · APNs · RevenueCat
 
 ---
 
-## Roadmap
+## Who this is for
 
-Modules are tracked as GitHub Issues. Current planned modules:
+Developers who already shipped a Capacitor prototype and hit the production wall. If you're learning Capacitor basics, start with [official docs](https://capacitorjs.com/docs) first.
 
-- [ ] Authentication
-- [ ] RevenueCat integration
-- [ ] Push Notifications (FCM + APNs)
-- [ ] CI/CD pipelines
-- [ ] Crash reporting
-- [ ] Feature flags
-- [ ] Offline sync
-- [ ] Background tasks
+---
 
-Browse [open issues](https://github.com/Mistakili/production-hybrid-reference/issues) for status and discussion.
+## Commercial toolkit
+
+This open-source reference is the foundation of **Production Hybrid** — a paid developer toolkit (ebook, recipes, premium modules). The OSS repo proves the fixes work before anyone pays.
 
 ---
 
 ## Contributing
 
-We welcome contributions that improve clarity, correctness, or production coverage. See [CONTRIBUTING.md](CONTRIBUTING.md).
-
-Priority areas:
-
-- Production lessons with the [Lessons format](docs/Lessons.md)
-- Isolated examples in `examples/`
-- Documentation fixes and diagram improvements
+See [CONTRIBUTING.md](CONTRIBUTING.md). Priority: production lessons with real hours-lost stories and working recipes.
 
 ---
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
-
----
-
-## Related
-
-- **Production Hybrid** — Commercial toolkit built on this reference (coming soon)
-- [Capacitor Documentation](https://capacitorjs.com/docs)
-- [Drizzle ORM](https://orm.drizzle.team/)
+MIT — [LICENSE](LICENSE)

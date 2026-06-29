@@ -37,7 +37,7 @@ RevenueCat → POST /webhooks/revenuecat → signature middleware
 
 - Store `event_id` from webhook payload; reject duplicates
 - Use [`templates/RevenueCatWebhook.ts`](../templates/RevenueCatWebhook.ts) as starting point
-- See [`examples/revenuecat/`](../examples/revenuecat/) for isolated handler
+- See [`recipes/revenuecat/`](../recipes/revenuecat/) for isolated handler
 
 ## Related
 

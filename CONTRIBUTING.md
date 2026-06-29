@@ -6,7 +6,8 @@ Thank you for helping make this the reference engineers consult for production C
 
 - **Documentation** that explains *why* an architecture exists
 - **Production lessons** using the format in [`docs/Lessons.md`](docs/Lessons.md)
-- **Isolated examples** in `examples/` that work without the full monorepo
+- **Production recipes** in `recipes/` that work without the full monorepo
+- **Production lessons** in `docs/production-lessons/` with real hours-lost numbers
 - **Templates** in `templates/` that are copy-paste ready with inline comments
 - **Bug fixes** and clarity improvements to existing reference code
 
@@ -37,7 +38,7 @@ Thank you for helping make this the reference engineers consult for production C
 
 ## Lessons contributions
 
-Real production stories are high-value. Use this structure in `docs/Lessons.md`:
+Real production stories are high-value. Use this structure in `docs/production-lessons/`:
 
 ```
 ### [Short title]
@@ -45,6 +46,8 @@ Real production stories are high-value. Use this structure in `docs/Lessons.md`:
 **Problem** — What went wrong in production?
 
 **Symptoms** — What did users or monitors show?
+
+**Hours lost** — How long did debugging take?
 
 **Root Cause** — What was actually broken?
 

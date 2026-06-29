@@ -65,6 +65,9 @@ jobs:
             docs/Troubleshooting.md
             docs/Lessons.md
             docs/ProductionChecklist.md
+            docs/production-lessons/lesson-01-testflight-push-fails.md
+            docs/production-lessons/lesson-02-appdelegate-cap-sync.md
+            docs/production-lessons/lesson-03-apns-http2-crashes.md
           )
           for doc in "${required_docs[@]}"; do
             if [ ! -f "$doc" ]; then

@@ -11,7 +11,7 @@ Quick reference for common production issues in Capacitor hybrid apps.
 1. Correct APNs environment (sandbox vs production) for build type
 2. Push capability enabled in Xcode
 3. Device token registered on backend (check logs for `platform: ios`)
-4. `AppDelegate` forwards token to Capacitor — see `examples/appdelegate/`
+4. `AppDelegate` forwards token to Capacitor — see `recipes/appdelegate/`
 
 **Logs to search:** `push.register`, `apns.send`, `token.refresh`
 
@@ -46,7 +46,7 @@ Quick reference for common production issues in Capacitor hybrid apps.
 2. `apple-app-site-association` hosted with correct content-type
 3. Capacitor `App` plugin listener registered before first navigation
 
-See `examples/deep-links/`.
+See `recipes/deep-links/`.
 
 ---
 
